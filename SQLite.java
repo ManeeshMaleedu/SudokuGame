@@ -19,7 +19,7 @@ public class SQLite {
         try {
             Class.forName("org.sqlite.JDBC");
             
-           String dbPath = "jdbc:sqlite:C:/Users/malee/OneDrive - AUT University/Documents/NetBeansProjects/SudokuGamer/Database/Sudoku.db";
+           String dbPath = "jdbc:sqlite:C:/Users/malee/OneDrive - AUT University/Documents/NetBeansProjects/SudokuGamer/Database/sqlite-tools-win32x64-202310241106/database.db";
 
             
             Connection connection = DriverManager.getConnection(dbPath);

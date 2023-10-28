@@ -210,7 +210,7 @@ public class SudokuGUI {
         }
     }
 
-    private void solveSudoku() {
+    public void solveSudoku() {
         if (board.solve()) {
             updateBoardUI();
             JOptionPane.showMessageDialog(frame, "Sudoku solved!");
@@ -219,28 +219,44 @@ public class SudokuGUI {
         }
     }
 
-    private void newGame() {
+    public void newGame() {
         generateNewGame();
         updateBoardUI();
         JOptionPane.showMessageDialog(frame, "New game generated!");
         saveGame();
     }
 
-    private void provideHint() {
-        Random random = new Random();
-        int row, col;
+   private void provideHint() {
+    Random random = new Random();
+    int row, col;
 
-        do {
-            row = random.nextInt(9);
-            col = random.nextInt(9);
-        } while (board.getCell(row, col) != 0);
+    // Find an empty cell (cell with value 0) for the hint
+    do {
+        row = random.nextInt(9);
+        col = random.nextInt(9);
+    } while (board.getCell(row, col) != 0);
 
-        int hintValue = generateHintValue(row, col);
+    // Generate a valid hint value for the cell
+    int hintValue = generateValidHint(row, col);
 
-        board.setCell(row, col, hintValue);
-        updateBoardUI();
-        saveGame();
-    }
+    // Set the hint value in the Sudoku board
+    board.setCell(row, col, hintValue);
+    updateBoardUI();
+    saveGame();
+}
+
+private int generateValidHint(int row, int col) {
+    Random random = new Random();
+    int hintValue;
+
+    // Generate a random hint value and check if it's valid
+    do {
+        hintValue = random.nextInt(9) + 1;
+    } while (!isValidInput(row, col, hintValue));
+
+    return hintValue;
+}
+
 
     private void checkSudoku() {
         if (board.solve()) {
@@ -250,7 +266,7 @@ public class SudokuGUI {
         }
     }
 
-    private void saveGame() {
+    public void saveGame() {
         String serializedGame = SudokuSerializer.serialize(board.getState());
         String saveName = null;
         database.saveGame(serializedGame, board.isSolved(),saveName);
@@ -258,7 +274,7 @@ public class SudokuGUI {
         populateSavedGamesDropdown();
     }
 
-    private void saveGame(String saveName) {
+    public void saveGame(String saveName) {
         String serializedGame = SudokuSerializer.serialize(board.getState());
         database.saveGame(serializedGame, board.isSolved(), saveName);
         JOptionPane.showMessageDialog(frame, "Game saved successfully!");
@@ -320,7 +336,7 @@ private void exitGame() {
         saveGame();
     }
 
-    private boolean isValidInput(int row, int col, int hintValue) {
+    public boolean isValidInput(int row, int col, int hintValue) {
         return hintValue >= 1 && hintValue <= 9 && board.isValidMove(row, col, hintValue);
     }
 
@@ -402,4 +418,14 @@ private void exitGame() {
 
         return homePanel;
     }
+
+    
+
+    public boolean isSolvable() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+   
+
+   
 }

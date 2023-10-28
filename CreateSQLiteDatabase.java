@@ -24,7 +24,7 @@ public class CreateSQLiteDatabase {
             return;
         }
         // JDBC URL for SQLite connection
- String jdbcUrl = "jdbc:sqlite:C:/Users/malee/OneDrive - AUT University/Documents/NetBeansProjects/SudokuGamer/Database/database.db";
+ String jdbcUrl = "jdbc:sqlite:C:/Users/malee/OneDrive - AUT University/Documents/NetBeansProjects/SudokuGamer/Database/sqlite-tools-win32x64-202310241106/database.db";
  // Specify the path to your database file
 
         try {
